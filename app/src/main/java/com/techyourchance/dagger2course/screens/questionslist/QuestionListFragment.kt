@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.techyourchance.dagger2course.di.Service
 import com.techyourchance.dagger2course.networking.FetchQuestionListUseCase
 import com.techyourchance.dagger2course.screens.common.BaseFragment
 import com.techyourchance.dagger2course.screens.common.ViewMvcFactory
@@ -11,14 +12,19 @@ import com.techyourchance.dagger2course.screens.common.dialogs.DialogNavigator
 import com.techyourchance.dagger2course.screens.questiondetails.QuestionDetailsActivity
 import kotlinx.coroutines.*
 
-class QuestionListFragment: BaseFragment(), QuestionListViewMvc.Listener {
+class QuestionListFragment : BaseFragment(), QuestionListViewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     private var isDataLoaded = false
 
-    lateinit var fetchQuestionListUseCase: FetchQuestionListUseCase
-    lateinit var dialogNavigator: DialogNavigator
-    lateinit var viewMvcFactory: ViewMvcFactory
+    @Service
+    private lateinit var fetchQuestionListUseCase: FetchQuestionListUseCase
+
+    @Service
+    private lateinit var dialogNavigator: DialogNavigator
+
+    @Service
+    private lateinit var viewMvcFactory: ViewMvcFactory
 
     private lateinit var questListViewMvc: QuestionListViewMvc
 
@@ -55,7 +61,7 @@ class QuestionListFragment: BaseFragment(), QuestionListViewMvc.Listener {
             questListViewMvc.showProgressIndication()
             try {
                 val result = fetchQuestionListUseCase.lastActiveQuestions(20)
-                when(result) {
+                when (result) {
                     is FetchQuestionListUseCase.Result.Success -> {
                         questListViewMvc.bindData(result.questions)
                     }
