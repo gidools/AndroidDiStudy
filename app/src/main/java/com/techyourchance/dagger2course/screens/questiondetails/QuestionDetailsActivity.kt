@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import com.techyourchance.dagger2course.di.Service
 import com.techyourchance.dagger2course.networking.FetchQuestionDetailsUseCase
 import com.techyourchance.dagger2course.screens.common.BaseActivity
 import com.techyourchance.dagger2course.screens.common.ViewMvcFactory
@@ -14,11 +15,11 @@ class QuestionDetailsActivity : BaseActivity(), QuestionDetailsVewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
-    lateinit var questionDetailsViewMvc: QuestionDetailsVewMvc
-    lateinit var questionDetailsUseCase: FetchQuestionDetailsUseCase
-    lateinit var dialogNavigator: DialogNavigator
-    lateinit var viewMvcFactory: ViewMvcFactory
+    @Service private lateinit var questionDetailsUseCase: FetchQuestionDetailsUseCase
+    @Service private lateinit var dialogNavigator: DialogNavigator
+    @Service private lateinit var viewMvcFactory: ViewMvcFactory
 
+    private lateinit var questionDetailsViewMvc: QuestionDetailsVewMvc
     private lateinit var questionId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
