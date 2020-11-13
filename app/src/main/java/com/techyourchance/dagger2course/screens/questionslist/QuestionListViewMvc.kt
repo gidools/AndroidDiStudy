@@ -85,7 +85,7 @@ class QuestionListViewMvc(layoutInflater: LayoutInflater, parent: ViewGroup?)
         override fun onBindViewHolder(holder: QuestionViewHolder, position: Int) {
             holder.title.text = questionsList[position].title
             holder.itemView.setOnClickListener {
-                onQuestionClickListener.invoke(questionsList[position])
+                onQuestionClickListener(questionsList[position])
             }
         }
 

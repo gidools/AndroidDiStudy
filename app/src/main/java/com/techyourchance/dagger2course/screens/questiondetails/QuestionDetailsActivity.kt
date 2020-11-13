@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import com.techyourchance.dagger2course.networking.FetchQuestionDetailsUseCase
 import com.techyourchance.dagger2course.screens.common.BaseActivity
+import com.techyourchance.dagger2course.screens.common.ViewMvcFactory
 import com.techyourchance.dagger2course.screens.common.dialogs.DialogNavigator
 import kotlinx.coroutines.*
 
@@ -13,29 +14,24 @@ class QuestionDetailsActivity : BaseActivity(), QuestionDetailsVewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
+    lateinit var questionDetailsViewMvc: QuestionDetailsVewMvc
+    lateinit var questionDetailsUseCase: FetchQuestionDetailsUseCase
+    lateinit var dialogNavigator: DialogNavigator
+    lateinit var viewMvcFactory: ViewMvcFactory
+
     private lateinit var questionId: String
-
-    private lateinit var questionDetailsViewMvc: QuestionDetailsVewMvc
-
-    private lateinit var questionDetailsUseCase: FetchQuestionDetailsUseCase
-
-    private lateinit var dialogNavigator: DialogNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        questionDetailsViewMvc = activityCompositionRoot.viewMvcFactory.newQuestionDetailViewMvc(null)
+        injector.inject(this)
 
-        questionDetailsViewMvc = QuestionDetailsVewMvc(LayoutInflater.from(this), null)
+        questionDetailsViewMvc = viewMvcFactory.newQuestionDetailViewMvc(null)
 
         setContentView(questionDetailsViewMvc.rootView)
 
         // retrieve question ID passed from outside
         questionId = intent.extras!!.getString(EXTRA_QUESTION_ID)!!
-
-        questionDetailsUseCase = compositionRoot.fetchQuestionDetailsUseCase
-
-        dialogNavigator = compositionRoot.dialogNavigator
     }
 
     override fun onStart() {
