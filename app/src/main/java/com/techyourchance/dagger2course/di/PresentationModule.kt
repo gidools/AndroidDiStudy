@@ -11,22 +11,10 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class PresentationModule(private val activityComponent: ActivityComponent) {
-
-    @Provides
-    fun activity() = activityComponent.activity()
-
-    @Provides
-    fun layoutInflater() = activityComponent.layoutInflater()
+class PresentationModule {
 
     @Provides
     fun viewMvcFactory(layoutInflater: LayoutInflater) = ViewMvcFactory(layoutInflater)
-
-    @Provides
-    fun fragmentManager() = activityComponent.fragmentManager()
-
-    @Provides
-    fun stackoverflowApi() = activityComponent.stackoverflowApi()
 
     @Provides
     fun fetchQuestionListUseCase(stackoverflowApi: StackoverflowApi)

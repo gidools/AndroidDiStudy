@@ -15,8 +15,6 @@ interface ActivityComponent {
 
     fun layoutInflater(): LayoutInflater
 
-    fun viewMvcFactory(): ViewMvcFactory
-
     fun fragmentManager(): FragmentManager
 
     fun stackoverflowApi(): StackoverflowApi
