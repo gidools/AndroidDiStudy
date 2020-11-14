@@ -8,13 +8,15 @@ abstract class BaseActivity : AppCompatActivity() {
 
     private val appCompositionRoot get() = (application as MyApplication).appCompositionRoot
 
-    val activityCompositionRoot by lazy {
-        ActivityCompositionRoot(this, appCompositionRoot)
+    val activityComponent: ActivityComponent by lazy {
+        DaggerActivityComponent.builder()
+                .activityModule(ActivityModule(this, appCompositionRoot))
+                .build()
     }
 
     protected val presentationComponent: PresentationComponent by lazy {
         DaggerPresentationComponent.builder()
-                .presentationModule(PresentationModule(activityCompositionRoot))
+                .presentationModule(PresentationModule(activityComponent))
                 .build()
     }
 
