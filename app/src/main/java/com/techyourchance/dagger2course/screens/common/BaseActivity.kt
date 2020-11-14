@@ -2,9 +2,7 @@ package com.techyourchance.dagger2course.screens.common
 
 import androidx.appcompat.app.AppCompatActivity
 import com.techyourchance.dagger2course.MyApplication
-import com.techyourchance.dagger2course.di.ActivityCompositionRoot
-import com.techyourchance.dagger2course.di.Injector
-import com.techyourchance.dagger2course.di.PresentationCompositionRoot
+import com.techyourchance.dagger2course.di.*
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -14,12 +12,14 @@ abstract class BaseActivity : AppCompatActivity() {
         ActivityCompositionRoot(this, appCompositionRoot)
     }
 
-    protected val compositionRoot by lazy {
-        PresentationCompositionRoot(activityCompositionRoot)
+    protected val presentationComponent: PresentationComponent by lazy {
+        DaggerPresentationComponent.builder()
+                .presentationModule(PresentationModule(activityCompositionRoot))
+                .build()
     }
 
     protected val injector by lazy {
-        Injector(compositionRoot)
+        Injector(presentationComponent)
     }
 
 }
