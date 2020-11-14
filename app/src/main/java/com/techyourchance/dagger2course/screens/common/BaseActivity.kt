@@ -14,9 +14,10 @@ abstract class BaseActivity : AppCompatActivity() {
                 .build()
     }
 
-    protected val presentationComponent: PresentationComponent by lazy {
+    private val presentationComponent: PresentationComponent by lazy {
         DaggerPresentationComponent.builder()
-                .presentationModule(PresentationModule(activityComponent))
+                .activityComponent(activityComponent)
+                .presentationModule(PresentationModule())
                 .build()
     }
 

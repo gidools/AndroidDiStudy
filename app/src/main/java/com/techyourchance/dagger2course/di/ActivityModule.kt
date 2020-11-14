@@ -20,9 +20,6 @@ class ActivityModule(private val activity: FragmentActivity,
     fun layoutInflater() = activity.layoutInflater
 
     @Provides
-    fun viewMvcFactory(layoutInflater: LayoutInflater) = ViewMvcFactory(layoutInflater)
-
-    @Provides
     fun fragmentManager() = activity.supportFragmentManager
 
     @Provides
