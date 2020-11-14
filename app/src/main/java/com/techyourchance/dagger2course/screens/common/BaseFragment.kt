@@ -2,7 +2,6 @@ package com.techyourchance.dagger2course.screens.common
 
 import androidx.fragment.app.Fragment
 import com.techyourchance.dagger2course.di.DaggerPresentationComponent
-import com.techyourchance.dagger2course.di.Injector
 import com.techyourchance.dagger2course.di.PresentationModule
 
 abstract class BaseFragment: Fragment() {
@@ -14,7 +13,5 @@ abstract class BaseFragment: Fragment() {
                 .build()
     }
 
-    protected val injector by lazy {
-        Injector(compositionRoot)
-    }
+    protected val injector get() = compositionRoot
 }
