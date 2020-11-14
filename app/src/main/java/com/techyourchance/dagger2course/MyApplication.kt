@@ -1,15 +1,15 @@
 package com.techyourchance.dagger2course
 
 import android.app.Application
-import com.techyourchance.dagger2course.di.AppCompositionRoot
+import com.techyourchance.dagger2course.di.AppComponent
+import com.techyourchance.dagger2course.di.AppModule
+import com.techyourchance.dagger2course.di.DaggerAppComponent
 
 class MyApplication : Application() {
 
-    lateinit var appCompositionRoot: AppCompositionRoot
-
-    override fun onCreate() {
-        super.onCreate()
-
-        appCompositionRoot = AppCompositionRoot(this)
+    val appComponent: AppComponent by lazy {
+        DaggerAppComponent.builder()
+                .appModule(AppModule(this))
+                .build()
     }
 }

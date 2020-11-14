@@ -1,25 +1,20 @@
 package com.techyourchance.dagger2course.di
 
-import android.app.Activity
 import android.view.LayoutInflater
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
-import com.techyourchance.dagger2course.networking.FetchQuestionDetailsUseCase
-import com.techyourchance.dagger2course.networking.FetchQuestionListUseCase
 import com.techyourchance.dagger2course.screens.common.ViewMvcFactory
-import com.techyourchance.dagger2course.screens.common.dialogs.DialogNavigator
 import dagger.Module
 import dagger.Provides
 
 @Module
-class ActivityModule(val activity: FragmentActivity,
-                     private val appCompositionRoot: AppCompositionRoot) {
+class ActivityModule(private val activity: FragmentActivity,
+                     private val appComponent: AppComponent) {
 
     @Provides
     fun activity() = activity
 
     @Provides
-    fun application() = appCompositionRoot.application
+    fun application() = appComponent.application()
 
     @Provides
     fun layoutInflater() = activity.layoutInflater
@@ -31,6 +26,6 @@ class ActivityModule(val activity: FragmentActivity,
     fun fragmentManager() = activity.supportFragmentManager
 
     @Provides
-    fun stackoverflowApi() = appCompositionRoot.stackoverflowApi
+    fun stackoverflowApi() = appComponent.stackoverflowApi()
 
 }

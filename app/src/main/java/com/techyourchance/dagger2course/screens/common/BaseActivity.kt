@@ -6,7 +6,7 @@ import com.techyourchance.dagger2course.di.*
 
 abstract class BaseActivity : AppCompatActivity() {
 
-    private val appCompositionRoot get() = (application as MyApplication).appCompositionRoot
+    private val appCompositionRoot get() = (application as MyApplication).appComponent
 
     val activityComponent: ActivityComponent by lazy {
         DaggerActivityComponent.builder()
