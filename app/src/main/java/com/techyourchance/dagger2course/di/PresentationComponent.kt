@@ -4,6 +4,7 @@ import com.techyourchance.dagger2course.screens.questiondetails.QuestionDetailsA
 import com.techyourchance.dagger2course.screens.questionslist.QuestionListFragment
 import dagger.Component
 
+@PresentationScope
 @Component(dependencies = [ActivityComponent::class], modules = [PresentationModule::class])
 interface PresentationComponent {
 

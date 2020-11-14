@@ -7,22 +7,15 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class ActivityModule(private val activity: FragmentActivity,
-                     private val appComponent: AppComponent) {
+class ActivityModule(private val activity: FragmentActivity) {
 
     @Provides
     fun activity() = activity
-
-    @Provides
-    fun application() = appComponent.application()
 
     @Provides
     fun layoutInflater() = activity.layoutInflater
 
     @Provides
     fun fragmentManager() = activity.supportFragmentManager
-
-    @Provides
-    fun stackoverflowApi() = appComponent.stackoverflowApi()
 
 }
