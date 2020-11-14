@@ -7,8 +7,10 @@ import com.techyourchance.dagger2course.networking.StackoverflowApi
 import com.techyourchance.dagger2course.screens.common.ViewMvcFactory
 import dagger.Component
 import dagger.Provides
+import javax.inject.Scope
 
-@Component(modules = [ActivityModule::class])
+@ActivityScope
+@Component(dependencies = [AppComponent::class], modules = [ActivityModule::class])
 interface ActivityComponent {
 
     fun activity(): FragmentActivity
