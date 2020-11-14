@@ -22,9 +22,11 @@ class AppModule(private val application: Application) {
         retrofit.create(StackoverflowApi::class.java)
     }
 
+    @AppScope
     @Provides
     fun application() = application
 
+    @AppScope
     @Provides
     fun stackoverflowApi() = stackoverflowApi
 
