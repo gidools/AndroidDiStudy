@@ -10,14 +10,19 @@ import com.techyourchance.dagger2course.screens.common.BaseActivity
 import com.techyourchance.dagger2course.screens.common.ViewMvcFactory
 import com.techyourchance.dagger2course.screens.common.dialogs.DialogNavigator
 import kotlinx.coroutines.*
+import javax.inject.Inject
 
 class QuestionDetailsActivity : BaseActivity(), QuestionDetailsVewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
-    @Service private lateinit var questionDetailsUseCase: FetchQuestionDetailsUseCase
-    @Service private lateinit var dialogNavigator: DialogNavigator
-    @Service private lateinit var viewMvcFactory: ViewMvcFactory
+    @Inject
+    lateinit var questionDetailsUseCase: FetchQuestionDetailsUseCase
+
+    @Inject
+    lateinit var dialogNavigator: DialogNavigator
+    @Inject
+    lateinit var viewMvcFactory: ViewMvcFactory
 
     private lateinit var questionDetailsViewMvc: QuestionDetailsVewMvc
     private lateinit var questionId: String
@@ -54,7 +59,7 @@ class QuestionDetailsActivity : BaseActivity(), QuestionDetailsVewMvc.Listener {
             questionDetailsViewMvc.showProgressIndication()
             try {
                 val result = questionDetailsUseCase.questionDetails(questionId)
-                when(result) {
+                when (result) {
                     is FetchQuestionDetailsUseCase.Result.Success -> {
                         questionDetailsViewMvc.bindQuestion(result.questionWithBody.body)
                     }

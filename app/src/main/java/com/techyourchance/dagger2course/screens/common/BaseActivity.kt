@@ -20,8 +20,6 @@ abstract class BaseActivity : AppCompatActivity() {
                 .build()
     }
 
-    protected val injector by lazy {
-        Injector(presentationComponent)
-    }
+    protected val injector get() = presentationComponent
 
 }

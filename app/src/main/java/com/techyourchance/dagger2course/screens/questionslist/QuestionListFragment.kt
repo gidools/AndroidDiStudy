@@ -11,20 +11,21 @@ import com.techyourchance.dagger2course.screens.common.ViewMvcFactory
 import com.techyourchance.dagger2course.screens.common.dialogs.DialogNavigator
 import com.techyourchance.dagger2course.screens.questiondetails.QuestionDetailsActivity
 import kotlinx.coroutines.*
+import javax.inject.Inject
 
 class QuestionListFragment : BaseFragment(), QuestionListViewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     private var isDataLoaded = false
 
-    @Service
-    private lateinit var fetchQuestionListUseCase: FetchQuestionListUseCase
+    @Inject
+    lateinit var fetchQuestionListUseCase: FetchQuestionListUseCase
 
-    @Service
-    private lateinit var dialogNavigator: DialogNavigator
+    @Inject
+    lateinit var dialogNavigator: DialogNavigator
 
-    @Service
-    private lateinit var viewMvcFactory: ViewMvcFactory
+    @Inject
+    lateinit var viewMvcFactory: ViewMvcFactory
 
     private lateinit var questListViewMvc: QuestionListViewMvc
 
